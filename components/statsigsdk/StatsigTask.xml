@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="StatsigTask" extends="Task"
+	xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+  <interface>
+    <!-- set by Statsig before initializing -->
+    <field id="userAttributes" type="assocarray" />
+    <field id="options" type="assocarray" />
+    <field id="sdkKey" type="string" />
+    
+    <!-- used internally by Statsig to initialize
+         and log events via the task in the background -->
+    <field id="initializeValues" type="assocarray" alwaysNotify="true" />
+    <field id="event" type="assocarray" alwaysNotify="true" />
+  </interface>
+
+  <script type = "text/brightscript" >
+  
+    <![CDATA[
+
+      function use() as Object
+        return {}
+      end function
+
+    ]]>
+
+  </script>
+
+  <!-- replace with correct location if needed -->
+  <script type="text/brightscript" uri="pkg:/components/statsigsdk/StatsigTask.brs" />
+  <script type="text/brightscript" uri="pkg:/source/StatsigClient.brs" />
+  <script type="text/brightscript" uri="pkg:/source/StatsigUser.brs" />
+  <script type="text/brightscript" uri="pkg:/source/DynamicConfig.brs" />
+
+</component>
