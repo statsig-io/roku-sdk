@@ -122,6 +122,9 @@ function StatsigNetwork(sdkKey, user) as object
                 user: m._user.toEvaluationDictionary()
             })) then
                 msg = Wait(3000, m._port)
+                if msg = invalid then
+                    return {feature_gates: {}, dynamic_configs: {}}
+                end if
                 values = parseJSON(msg)
                 if values["feature_gates"] <> invalid and values["dynamic_configs"] <> invalid then
                     return values
