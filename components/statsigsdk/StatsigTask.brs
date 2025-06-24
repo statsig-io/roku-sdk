@@ -122,15 +122,24 @@ function StatsigNetwork(sdkKey, user) as object
                 user: m._user.toEvaluationDictionary()
             })) then
                 msg = Wait(3000, m._port)
+                defaultResult = { feature_gates: {}, dynamic_configs: {} }
+                
                 if msg = invalid then
-                    return {feature_gates: {}, dynamic_configs: {}}
+                    return defaultResult
                 end if
-                values = parseJSON(msg)
-                if values["feature_gates"] <> invalid and values["dynamic_configs"] <> invalid then
-                    return values
-                else
-                    return {feature_gates: {}, dynamic_configs: {}}
+                
+                if type(msg) = "roUrlEvent" then
+                    data = msg.GetString()
+                    values = parseJSON(data)
+                
+                    if GetInterface(values, "ifAssociativeArray") <> invalid then
+                        if values["feature_gates"] <> invalid and values["dynamic_configs"] <> invalid then
+                            return values
+                        end if
+                    end if
                 end if
+
+                return defaultResult
             end if
         end function
 
